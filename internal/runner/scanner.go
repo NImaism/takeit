@@ -48,7 +48,7 @@ func (r *Runner) getContent(target string) (string, error) {
 	if reqErr != nil {
 		return "", fmt.Errorf("failed to create request: %v", reqErr)
 	}
-
+    req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0")
 	for k, v := range r.CustomHeader {
 		req.Header.Set(k, v)
 	}
