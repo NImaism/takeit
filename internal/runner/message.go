@@ -9,7 +9,6 @@ func (r *Runner) printScanResult(target, discussion, documentation string, isVul
 	if isVulnerable {
 		if r.Option.Silent {
 			fmt.Println(target)
-			return
 		}
 		r.printMessage(fmt.Sprintf("[+] %s is vulnerable | %s | %s", target, discussion, documentation), "", true)
 	} else {
@@ -20,6 +19,9 @@ func (r *Runner) printScanResult(target, discussion, documentation string, isVul
 }
 
 func (r *Runner) printMessage(message, target string, isPositive bool) {
+	if r.Option.Silent {
+		return
+	}
 	if r.Option.NoColors {
 		if target != "" {
 			fmt.Printf("[+] %s: %s\n", message, target)
