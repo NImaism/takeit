@@ -11,7 +11,7 @@
   <a href="#usage">Usage</a> •
   <a href="#contributing">Contributing</a> •
   <a href="https://t.me/NimaGholamy">Contact me</a> •
-  <a href="https://twitter.com/nimaghoalym">Follow Twiiter</a>
+  <a href="https://twitter.com/nimagholamy">Follow Twiiter</a>
 </p>
 
 ---
