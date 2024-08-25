@@ -60,6 +60,7 @@ CONFIGURATION:
    -config string                Path to the configuration file
    -cn, -cname                   Check CNAME before send request
    -H, -headers string[]         Custom header/cookie to include in all HTTP requests in header:value format (file)
+   -e, -exclude string[]         the patterns you don't want to check.
    -dr, -disable-redirects       Disable following redirects (default false)
 
 RATE-LIMIT:
@@ -80,6 +81,22 @@ OUTPUT:
 1. Limit response size to 2MB and check CNAME before send HTTP request:
 ```sh
 $ cat targets.txt | takeit -timeout 20 -cn -max-response-size 2000 -silent
+```
+2. Exclude patterns
+```sh
+$ cat targets.txt | takeit -e 'AWS/S3'
+```
+
+It is also possible to supply as a file. For example:
+```sh
+$ cat excludes.txt
+
+AWS/Load Balancer (ELB)
+Acquia
+Agile CRM
+```
+```sh
+$ cat targets.txt | takeit -e excludes.txt
 ```
 
 <br/>
