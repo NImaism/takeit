@@ -11,7 +11,7 @@ import (
 
 const gitHubAPIURL = "https://api.github.com/repos/nimaism/takeit/releases/latest"
 
-const currentVersion = "v0.1.0"
+const currentVersion = "v0.1.1"
 
 const banner = `
 ████████╗ █████╗ ██╗  ██╗███████╗██╗████████╗
