@@ -5,17 +5,11 @@ import (
 	"github.com/logrusorgru/aurora"
 )
 
-func (r *Runner) printScanResult(target, discussion, documentation string, isVulnerable bool) {
-	if isVulnerable {
-		if r.Option.Silent {
-			fmt.Println(target)
-		}
-		r.printMessage(fmt.Sprintf("[+] %s is vulnerable | %s | %s", target, discussion, documentation), "", true)
-	} else {
-		if !r.Option.Silent {
-			r.printMessage(fmt.Sprintf("[-] %s is not vulnerable", target), "", false)
-		}
+func (r *Runner) printScanResult(target, discussion, documentation string) {
+	if r.Option.Silent {
+		fmt.Println(target)
 	}
+	r.printMessage(fmt.Sprintf("[+] %s is vulnerable | %s | %s", target, discussion, documentation), "", true)
 }
 
 func (r *Runner) printMessage(message, target string, isPositive bool) {

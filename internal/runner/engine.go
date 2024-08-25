@@ -75,9 +75,7 @@ func (r *Runner) Worker(reqChan <-chan string, wg *sync.WaitGroup) {
 		}
 
 		if isVulnerable {
-			r.printScanResult(target, discussion, documentation, true)
-		} else if !r.Option.Silent {
-			r.printScanResult(target, "", "", false)
+			r.printScanResult(target, discussion, documentation)
 		}
 	}
 }
