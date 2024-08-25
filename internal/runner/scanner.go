@@ -10,8 +10,16 @@ import (
 )
 
 func (r *Runner) Scan(target string) (bool, string, string, error) {
+	host := target
+
+	if !network.CheckValidURL(target) {
+		target = "https://" + target
+	} else {
+		host = network.ExtractHost(target)
+	}
+
 	if r.Option.CheckCNAME {
-		if cName, err := network.CheckCNAMERecord(target); err != nil {
+		if cName, err := network.CheckCNAMERecord(host); err != nil {
 			return false, "", "", fmt.Errorf("failed to check CNAME record: %v", err)
 		} else if !cName {
 			return false, "", "", nil
@@ -35,10 +43,6 @@ func (r *Runner) Scan(target string) (bool, string, string, error) {
 }
 
 func (r *Runner) getContent(target string) (string, error) {
-	if !network.CheckValidURL(target) {
-		target = "https://" + target
-	}
-
 	var resp *http.Response
 	var err error
 
@@ -46,9 +50,10 @@ func (r *Runner) getContent(target string) (string, error) {
 
 	req, reqErr := http.NewRequest("GET", target, nil)
 	if reqErr != nil {
-		return "", fmt.Errorf("failed to create request: %v", reqErr)
+		return "	", fmt.Errorf("failed to create request: %v", reqErr)
 	}
-    req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0")
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0")
 	for k, v := range r.CustomHeader {
 		req.Header.Set(k, v)
 	}

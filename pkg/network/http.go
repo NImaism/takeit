@@ -5,6 +5,7 @@ import (
 	"github.com/nimaism/takeit/internal/model"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -31,4 +32,20 @@ func InitHTTPClient(maxReadBody, timeoutSec int, verifySSL, disableRedirect bool
 func CheckValidURL(input string) bool {
 	_, err := url.ParseRequestURI(input)
 	return err == nil
+}
+
+func ExtractHost(urlString string) string {
+	schemeEnd := strings.Index(urlString, "://")
+	if schemeEnd == -1 {
+		return ""
+	}
+
+	start := schemeEnd + 3
+
+	end := strings.Index(urlString[start:], "/")
+	if end == -1 {
+		return urlString[start:]
+	}
+
+	return urlString[start : start+end]
 }
